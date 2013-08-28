@@ -6,15 +6,22 @@ set :user, "azureuser"
 
 
 set :scm, :git
-set :repository, "git@github.com:waynelovely/blog_app.git"
+#set :repository, "git@github.com:waynelovely/blog_app.git"
+set :repository, "https://github.com/waynelovely/blog_app.git"
 set :branch, "master"
 set :use_sudo, true
 
 
 server "wtl-web1.cloudapp.net", :web, :app, :db, primary: true
+server "wtl-web2.cloudapp.net", :web, :app, :db, primary: false
 
+
+#role :web, "wtl-web1.cloudapp.net", "wtl-web2.cloudapp.net"
+#role :app, "wtl-web1.cloudapp.net", "wtl-web2.cloudapp.net"
+#role :db,  "wtl-web1.cloudapp.net"
 
 set :deploy_to, "/home/#{user}/apps/#{application}"
+#set :deploy_to, "/var/www/#{application}"
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 ssh_options[:port] = 22
